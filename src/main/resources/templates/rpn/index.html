@@ -28,31 +28,33 @@
         計算式が不正です。
     </div>
 
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label for="rpnFormula">逆ポーランド記法</label>
-                <input type="text" class="form-control" id="rpnFormula" placeholder="ex. 100 50 + 75 - 5 /">
+    <form method="post" action="/rpn/calculation/">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="rpnFormula">逆ポーランド記法</label>
+                    <input type="text" class="form-control" id="rpnFormula" name="rpnFormula" placeholder="ex. 100 50 + 75 - 5 /">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button type="submit" class="btn btn-primary">計算</button>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">計算</button>
+            </div>
         </div>
-    </div>
+    </form>
     <hr>
     <div class="row">
         <div class="col">
             <div class="form-group">
                 <label for="infixNotationFormula">中置記法</label>
-                <input type="text" class="form-control" id="infixNotationFormula" placeholder="ex. (100 + 50 - 75) / 5" disabled>
+                <input type="text" class="form-control" id="infixNotationFormula" placeholder="ex. (100 + 50 - 75) / 5" disabled th:value="${page.formula != null} ? ${page.formula} : ''">
             </div>
         </div>
         <div class="col">
             <div class="form-group">
                 <label for="result">計算結果</label>
-                <input type="text" class="form-control" id="result" placeholder="ex. 15" disabled>
+                <input type="text" class="form-control" id="result" placeholder="ex. 15" disabled th:value="${page.result != null} ? ${page.result} : ''">
             </div>
         </div>
     </div>
