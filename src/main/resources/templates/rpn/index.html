@@ -24,35 +24,42 @@
 
 
 <div class="container">
-    <div class="alert alert-danger" role="alert">
-        計算式が不正です。
+    <div class="alert alert-danger" role="alert" th:if="${form.errorMessage != null}" th:text="${form.errorMessage}">
     </div>
 
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label for="rpnFormula">逆ポーランド記法</label>
-                <input type="text" class="form-control" id="rpnFormula" placeholder="ex. 100 50 + 75 - 5 /">
+    <form method="post" action="/rpn/calc">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="rpnFormula">逆ポーランド記法</label>
+                    <ul>
+                        <li>数字は-2147483648以上、2147483647以下の半角整数で入力してください。</li>
+                        <li>計算結果は-2147483648以上、2147483647以下が限界値となります。</li>
+                        <li>項は半角空白「 」区切りで入力してください。</li>
+                        <li>演算子は「+」「-」「*」「/」を使用してください。</li>
+                    </ul>
+                    <input type="text" class="form-control" id="rpnFormula" name="rpnFormula" placeholder="ex. 100 50 + 75 - 5 /">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button type="submit" class="btn btn-primary">計算</button>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">計算</button>
+            </div>
         </div>
-    </div>
+    </form>
     <hr>
     <div class="row">
         <div class="col">
             <div class="form-group">
                 <label for="infixNotationFormula">中置記法</label>
-                <input type="text" class="form-control" id="infixNotationFormula" placeholder="ex. (100 + 50 - 75) / 5" disabled>
+                <input type="text" class="form-control" id="infixNotationFormula" th:field="${form.infixNotation}" placeholder="ex. (100 + 50 - 75) / 5" disabled>
             </div>
         </div>
         <div class="col">
             <div class="form-group">
                 <label for="result">計算結果</label>
-                <input type="text" class="form-control" id="result" placeholder="ex. 15" disabled>
+                <input type="text" class="form-control" id="result" th:field="${form.calculationResult}" placeholder="ex. 15" disabled>
             </div>
         </div>
     </div>
