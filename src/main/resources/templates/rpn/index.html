@@ -27,13 +27,14 @@
     <div class="alert alert-danger" role="alert">
         計算式が不正です。
     </div>
-
+    <form method="get" action="rpn">
     <div class="row">
         <div class="col">
             <div class="form-group">
                 <label for="rpnFormula">逆ポーランド記法</label>
-                <input type="text" class="form-control" id="rpnFormula" placeholder="ex. 100 50 + 75 - 5 /">
+                <input type="text" class="form-control" id="rpnFormula" name="rpnFormula" th:value="${page.rpnFormula}" placeholder="ex. 100 50 + 75 - 5 /">
             </div>
+
         </div>
     </div>
     <div class="row">
@@ -41,18 +42,19 @@
             <button type="submit" class="btn btn-primary">計算</button>
         </div>
     </div>
+    </form>
     <hr>
     <div class="row">
         <div class="col">
             <div class="form-group">
                 <label for="infixNotationFormula">中置記法</label>
-                <input type="text" class="form-control" id="infixNotationFormula" placeholder="ex. (100 + 50 - 75) / 5" disabled>
+                <input type="text" class="form-control" id="infixNotationFormula" th:value="${page.inFormula}"placeholder="ex. (100 + 50 - 75) / 5" disabled>
             </div>
         </div>
         <div class="col">
             <div class="form-group">
                 <label for="result">計算結果</label>
-                <input type="text" class="form-control" id="result" placeholder="ex. 15" disabled>
+                <input type="text" class="form-control" id="result" th:value="${page.calculationResult}" placeholder="ex. 15" disabled>
             </div>
         </div>
     </div>
