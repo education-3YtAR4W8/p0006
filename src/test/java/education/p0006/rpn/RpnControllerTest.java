@@ -158,7 +158,7 @@ public class RpnControllerTest {
         assertEquals("4 / (6 - 2)", root.getInfixNotationFormula());
 
         root = sut.createTreeFromRpnFormula("4 2 / 6 3 / *");
-        assertEquals("4 / 2 * (6 / 3)", root.getInfixNotationFormula());
+        assertEquals("4 / 2 * 6 / 3", root.getInfixNotationFormula());
 
         root = sut.createTreeFromRpnFormula("1 2 + 3 * 3 /");
         assertEquals("(1 + 2) * 3 / 3", root.getInfixNotationFormula());

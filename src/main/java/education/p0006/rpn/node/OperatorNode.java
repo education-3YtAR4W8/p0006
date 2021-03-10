@@ -38,7 +38,7 @@ public class OperatorNode implements CalculationNode {
             }
             if (right instanceof OperatorNode) {
                 OperatorType operatorType = ((OperatorNode) right).operatorType;
-                needBraceForRight = (operatorType == OperatorType.Addition) || (operatorType == OperatorType.Subtraction) || (operatorType == OperatorType.Division);
+                needBraceForRight = (operatorType == OperatorType.Addition) || (operatorType == OperatorType.Subtraction);
             }
         }
         String leftFormula = String.format(needBraceForLeft ? "(%s)" : "%s", left.getInfixNotationFormula());
