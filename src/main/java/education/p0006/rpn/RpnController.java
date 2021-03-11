@@ -31,12 +31,11 @@ public class RpnController {
     public CalculationNode createTreeFromRpnFormula(String rpnFormula) {
         Stack<CalculationNode> workingStack = new Stack<>();
         Arrays.stream(rpnFormula.split(" ")).forEach(it -> {
-            if (OperatorType.isOperator(it)) {
-                OperatorType operatorType = OperatorType.of(it);
+            Optional<OperatorType> operatorType = OperatorType.of(it);
+            if (operatorType.isPresent()) {
                 CalculationNode right = workingStack.pop();
                 CalculationNode left = workingStack.pop();
-
-                OperatorNode operatorNode = new OperatorNode(operatorType, left, right);
+                OperatorNode operatorNode = new OperatorNode(operatorType.get(), left, right);
                 workingStack.push(operatorNode);
             } else {
                 Integer value = Integer.parseInt(it);

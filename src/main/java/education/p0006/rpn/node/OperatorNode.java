@@ -1,5 +1,6 @@
 package education.p0006.rpn.node;
 
+import com.sun.org.apache.xpath.internal.operations.Div;
 import education.p0006.rpn.OperatorType;
 import education.p0006.rpn.RpnController;
 import lombok.AllArgsConstructor;
@@ -26,23 +27,42 @@ public class OperatorNode implements CalculationNode {
         return right;
     }
 
+    private boolean needBraceForLeft() {
+        if (left instanceof OperatorNode) {
+            if (operatorType == OperatorType.Multiplication || operatorType == OperatorType.Division) {
+                if (((OperatorNode) left).operatorType == OperatorType.Addition || ((OperatorNode) left).operatorType ==OperatorType.Subtraction) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean needBraceForRight() {
+        if (right instanceof OperatorNode) {
+            if (operatorType == OperatorType.Multiplication || operatorType == OperatorType.Division) {
+                if (((OperatorNode) right).operatorType == OperatorType.Addition || ((OperatorNode) right).operatorType ==OperatorType.Subtraction) {
+                    return true;
+                }
+            }
+
+            if (operatorType == OperatorType.Subtraction && ((OperatorNode) right).operatorType == OperatorType.Subtraction) {
+                return true;
+            }
+
+            if (operatorType == OperatorType.Division && ((OperatorNode) right).operatorType == OperatorType.Division) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     @Override
     public String getInfixNotationFormula() {
-        boolean needBraceForLeft = false;
-        boolean needBraceForRight = false;
-        if (operatorType == OperatorType.Multiplication || operatorType == OperatorType.Division) {
-            if (left instanceof OperatorNode) {
-                OperatorType operatorType = ((OperatorNode) left).operatorType;
-                needBraceForLeft = (operatorType == OperatorType.Addition) || (operatorType == OperatorType.Subtraction);
-            }
-            if (right instanceof OperatorNode) {
-                OperatorType operatorType = ((OperatorNode) right).operatorType;
-                needBraceForRight = (operatorType == OperatorType.Addition) || (operatorType == OperatorType.Subtraction);
-            }
-        }
-        String leftFormula = String.format(needBraceForLeft ? "(%s)" : "%s", left.getInfixNotationFormula());
-        String rightFormula = String.format(needBraceForRight ? "(%s)" : "%s", right.getInfixNotationFormula());
+        String leftFormula = String.format(needBraceForLeft() ? "(%s)" : "%s", left.getInfixNotationFormula());
+        String rightFormula = String.format(needBraceForRight() ? "(%s)" : "%s", right.getInfixNotationFormula());
         return String.format("%s %s %s", leftFormula, operatorType.getSymbol(), rightFormula);
     }
 

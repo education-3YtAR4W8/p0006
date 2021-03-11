@@ -57,6 +57,18 @@ public class RpnControllerTest {
         root = sut.createTreeFromRpnFormula("4 6 2 - /");
         assertEquals("o: / [v: 4] (o: - [v: 6] (v: 2))", serializeCalculationNode(root));
 
+        root = sut.createTreeFromRpnFormula("8 4 / 2 /");
+        assertEquals("o: / [o: / [v: 8] (v: 4)] (v: 2)", serializeCalculationNode(root));
+
+        root = sut.createTreeFromRpnFormula("8 4 2 / /");
+        assertEquals("o: / [v: 8] (o: / [v: 4] (v: 2))", serializeCalculationNode(root));
+
+        root = sut.createTreeFromRpnFormula("3 2 - 1 -");
+        assertEquals("o: - [o: - [v: 3] (v: 2)] (v: 1)", serializeCalculationNode(root));
+
+        root = sut.createTreeFromRpnFormula("3 2 1 - -");
+        assertEquals("o: - [v: 3] (o: - [v: 2] (v: 1))", serializeCalculationNode(root));
+
         root = sut.createTreeFromRpnFormula("4 2 / 6 3 / *");
         assertEquals("o: * [o: / [v: 4] (v: 2)] (o: / [v: 6] (v: 3))", serializeCalculationNode(root));
 
@@ -113,6 +125,18 @@ public class RpnControllerTest {
         root = sut.createTreeFromRpnFormula("1 2 + 3 * 3 /");
         assertEquals(3, root.calculate().intValue());
 
+        root = sut.createTreeFromRpnFormula("8 4 / 2 /");
+        assertEquals(1, root.calculate().intValue());
+
+        root = sut.createTreeFromRpnFormula("8 4 2 / /");
+        assertEquals(4, root.calculate().intValue());
+
+        root = sut.createTreeFromRpnFormula("3 2 - 1 -");
+        assertEquals(0, root.calculate().intValue());
+
+        root = sut.createTreeFromRpnFormula("3 2 1 - -");
+        assertEquals(2, root.calculate().intValue());
+
         root = sut.createTreeFromRpnFormula("4 6 + 5 2 - * 1 2 + 3 2 1 * + * /");
         assertEquals(2, root.calculate().intValue());
     }
@@ -162,6 +186,18 @@ public class RpnControllerTest {
 
         root = sut.createTreeFromRpnFormula("1 2 + 3 * 3 /");
         assertEquals("(1 + 2) * 3 / 3", root.getInfixNotationFormula());
+
+        root = sut.createTreeFromRpnFormula("8 4 / 2 /");
+        assertEquals("8 / 4 / 2", root.getInfixNotationFormula());
+
+        root = sut.createTreeFromRpnFormula("8 4 2 / /");
+        assertEquals("8 / (4 / 2)", root.getInfixNotationFormula());
+
+        root = sut.createTreeFromRpnFormula("3 2 - 1 -");
+        assertEquals("3 - 2 - 1", root.getInfixNotationFormula());
+
+        root = sut.createTreeFromRpnFormula("3 2 1 - -");
+        assertEquals("3 - (2 - 1)", root.getInfixNotationFormula());
 
         root = sut.createTreeFromRpnFormula("4 6 + 5 2 - * 1 2 + 3 2 1 * + * /");
         assertEquals("(4 + 6) * (5 - 2) / (1 + 2) * (3 + 2 * 1)", root.getInfixNotationFormula());

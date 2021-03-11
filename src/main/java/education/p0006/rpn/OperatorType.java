@@ -3,6 +3,7 @@ package education.p0006.rpn;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @Getter
 public enum OperatorType {
@@ -10,19 +11,13 @@ public enum OperatorType {
 
     private String symbol;
 
-    private OperatorType(String symbol) {
+    OperatorType(String symbol) {
         this.symbol = symbol;
     }
 
-    public static OperatorType of(String symbol) {
+    public static Optional<OperatorType> of(String symbol) {
         return Arrays.stream(OperatorType.values())
                 .filter(it -> it.symbol.equals(symbol))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException(String.format("%sに紐づく演算子はありません。", symbol)));
-    }
-
-    public static boolean isOperator(String symbol) {
-        return Arrays.stream(OperatorType.values())
-                .anyMatch(it -> it.symbol.equals(symbol));
+                .findFirst();
     }
 }
