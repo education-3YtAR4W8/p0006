@@ -52,8 +52,8 @@ public class RpnController {
         return root;
     }
 
-    @PostMapping(path="/rpm")
-    public String calculate(@RequestParam("rpnFormula")String rpnFormula, RpnSession rpnSession) {
+    @PostMapping(path = "/rpm")
+    public String calculate(@RequestParam("rpnFormula") String rpnFormula, RpnSession rpnSession) {
         rpnSession.clearMessageFlags();
         rpnSession.rpnFormula = rpnFormula;
         try {

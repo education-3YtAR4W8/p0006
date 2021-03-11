@@ -30,7 +30,7 @@ public class OperatorNode implements CalculationNode {
     private boolean needBraceForLeft() {
         if (left instanceof OperatorNode) {
             if (operatorType == OperatorType.Multiplication || operatorType == OperatorType.Division) {
-                if (((OperatorNode) left).operatorType == OperatorType.Addition || ((OperatorNode) left).operatorType ==OperatorType.Subtraction) {
+                if (((OperatorNode) left).operatorType == OperatorType.Addition || ((OperatorNode) left).operatorType == OperatorType.Subtraction) {
                     return true;
                 }
             }
@@ -42,7 +42,7 @@ public class OperatorNode implements CalculationNode {
     private boolean needBraceForRight() {
         if (right instanceof OperatorNode) {
             if (operatorType == OperatorType.Multiplication || operatorType == OperatorType.Division) {
-                if (((OperatorNode) right).operatorType == OperatorType.Addition || ((OperatorNode) right).operatorType ==OperatorType.Subtraction) {
+                if (((OperatorNode) right).operatorType == OperatorType.Addition || ((OperatorNode) right).operatorType == OperatorType.Subtraction) {
                     return true;
                 }
             }
